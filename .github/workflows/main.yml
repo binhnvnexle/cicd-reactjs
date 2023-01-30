@@ -1,15 +1,18 @@
 name: CI/CD
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+  workflow_dispatch:
+  
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on:
+      - self-hosted
+      - label-1
 
     strategy:
       matrix:
@@ -18,6 +21,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      
+    - name: Run a one-line script
+      run: |
+        echo Hi!!!!
+        sleep 15
+        echo bye!!!
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
